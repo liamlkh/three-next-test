@@ -4,6 +4,7 @@ import { Environment, OrbitControls, PerspectiveCamera, Preload } from '@react-t
 export default function Scene({ children, ...props }) {
   return (
     <Canvas {...props}>
+      {/* @ts-expect-error */}
       <PerspectiveCamera makeDefault position={[0, 0, 50]} fov={60} zoom={0.9} />
       <ambientLight intensity={0.5} />
       {children}
