@@ -1,19 +1,28 @@
 import { useState } from 'react'
 import { useRouter } from 'next/router'
-import { useCursor, MeshDistortMaterial } from '@react-three/drei'
+import { useCursor } from '@react-three/drei'
+
+import { useLoader } from '@react-three/fiber'
+import { STLLoader } from 'three-stdlib'
 
 export default function Blob({ route, ...props }) {
   const router = useRouter()
   const [hovered, hover] = useState(false)
   useCursor(hovered)
+
+  const upperJaw = useLoader(STLLoader, '/stls/UpperJaw.stl')
+  const lowerJaw = useLoader(STLLoader, '/stls/LowerJaw.stl')
+
   return (
-    <mesh
-      onClick={() => router.push(route)}
-      onPointerOver={() => hover(true)}
-      onPointerOut={() => hover(false)}
-      {...props}>
-      <sphereGeometry args={[1, 64, 64]} />
-      <MeshDistortMaterial roughness={0} color={hovered ? 'hotpink' : '#1fb2f5'} />
-    </mesh>
+    <group rotation={[-Math.PI / 2, 0, 0]}>
+      <mesh>
+        <primitive object={upperJaw} />
+        <meshStandardMaterial color='grey' />
+      </mesh>
+      <mesh>
+        <primitive object={lowerJaw} />
+        <meshStandardMaterial color='grey' />
+      </mesh>
+    </group>
   )
 }
