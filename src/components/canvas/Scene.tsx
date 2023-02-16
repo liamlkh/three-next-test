@@ -1,5 +1,6 @@
 import { Canvas } from '@react-three/fiber'
 import { Environment, OrbitControls, PerspectiveCamera, Preload } from '@react-three/drei'
+import { Perf } from 'r3f-perf'
 
 export default function Scene({ children, ...props }) {
   return (
@@ -11,6 +12,7 @@ export default function Scene({ children, ...props }) {
       <Preload all />
       <OrbitControls />
       <Environment preset='warehouse' />
+      <Perf />
     </Canvas>
   )
 }
